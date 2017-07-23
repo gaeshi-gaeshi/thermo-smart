@@ -5,13 +5,18 @@ import (
 	"io/ioutil"
 	"strconv"
 	"strings"
+	"time"
 )
 
 // ReadTemperature is used to access the current temperature from the temperature sensor
 func ReadTemperature() (float32, error) {
 	var error error
 	var bytes []byte
-	bytes, error = ioutil.ReadFile("/sys/bus/w1/devices/28-8000001fa053/w1_slave")
+	var path = "/sys/bus/w1/devices/28-8000001fa053/w1_slave"
+
+	bytes, error = ioutil.ReadFile(path)
+	time.Sleep(time.Second)
+	bytes, error = ioutil.ReadFile(path)
 
 	if error != nil {
 		return 0, error
