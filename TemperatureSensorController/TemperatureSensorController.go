@@ -2,6 +2,7 @@ package TemperatureSensorController
 
 import (
 	"errors"
+	"fmt"
 	"io/ioutil"
 	"strconv"
 	"strings"
@@ -40,5 +41,15 @@ func ReadTemperature() (float32, error) {
 		return 0, error
 	}
 
-	return float32(temperature / 1000), nil
+	return round(float32(temperature/1000), 1)
+}
+
+func round(number float32, decimalDigitToRoundTo int) (float32, error) {
+	var roundedNumberAsString = fmt.Sprintf("%."+strconv.Itoa(decimalDigitToRoundTo)+"f", number)
+	var roundedNumberAsFloat64, error = strconv.ParseFloat(roundedNumberAsString, 32)
+	if error != nil {
+		return 0, nil
+	}
+
+	return float32(roundedNumberAsFloat64), nil
 }
