@@ -1,13 +1,14 @@
-package main
+package TemperatureSensorController
 
 import (
+	"errors"
 	"io/ioutil"
 	"strconv"
 	"strings"
 )
 
-// TryReadTemperature is used to access the current temperature from the temperature sensor
-func TryReadTemperature() (float32, error) {
+// ReadTemperature is used to access the current temperature from the temperature sensor
+func ReadTemperature() (float32, error) {
 	var error error
 	var bytes []byte
 	bytes, error = ioutil.ReadFile("/sys/bus/w1/devices/28-8000001fa053/w1_slave")
@@ -18,17 +19,13 @@ func TryReadTemperature() (float32, error) {
 
 	var wholeText = string(bytes)
 	var lines = strings.Split(wholeText, "\n")
-	if len(lines) != 2 {
-		return 0, error
-	}
-
 	if strings.HasSuffix(lines[0], "NO") {
-		return 0, error
+		return 0, errors.New("Read temperature from sensor failed - the sensor returned 'NO'")
 	}
 
 	var indexOfT = strings.Index(lines[1], "t=")
 	if indexOfT == -1 {
-		return 0, error
+		return 0, errors.New("Read temperature from sensor failed - 't=' not found")
 	}
 
 	var temperatureAsString = string(lines[1][indexOfT+2:])
