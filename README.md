@@ -3,7 +3,8 @@ The smart thermostat
 
 ## TODO list
 
-- [ ] Read temperature from file
+- [X] Read temperature from file
+- [ ] Log temperature in file/db
 - [ ] Expose temperature as API
 - [ ] Implement control logic for heaters
 - [ ] Expose heaters status as API
