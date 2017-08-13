@@ -1,7 +1,9 @@
 package config
 
 var App = &app{
-	DbDirectory: "/tmp/thermo-smart",
+	DbDirectory:  "/tmp/thermo-smart",
+	DbName:       "thermo-smart",
+	DbConnection: "127.0.0.1",
 }
 
 var Time = &time{
@@ -9,7 +11,9 @@ var Time = &time{
 }
 
 type app struct {
-	DbDirectory string
+	DbDirectory  string
+	DbName       string
+	DbConnection string
 }
 
 type time struct {

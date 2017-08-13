@@ -2,6 +2,8 @@ package models
 
 import (
 	"time"
+
+	"gopkg.in/mgo.v2/bson"
 )
 
 var TemperaturesSchema = &schema{
@@ -12,6 +14,7 @@ var TemperaturesSchema = &schema{
 }
 
 type Temperature struct {
+	ID         bson.ObjectId `bson:"_id,omitempty"`
 	Indication float64
 	Date       time.Time
 	Threshold  float64
