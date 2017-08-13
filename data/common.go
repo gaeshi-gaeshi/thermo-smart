@@ -12,6 +12,7 @@ type Unit interface {
 type Query interface {
 	Field(name string) *Query
 	Equals(value interface{}) *Query
+	Between(start int64, end int64) *Query
 	Build() map[string]interface{}
 	Clear()
 }

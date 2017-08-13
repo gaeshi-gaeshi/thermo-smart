@@ -30,9 +30,9 @@ func main() {
 	// 	fmt.Println(err)
 	// }
 
-	// if err := tiedotDb.Create("Temperatures"); err != nil {
-	// 	panic(err)
-	// }
+	// // if err := tiedotDb.Create("Temperatures"); err != nil {
+	// // 	panic(err)
+	// // }
 
 	// temperatures := tiedotDb.Use("Temperatures")
 
@@ -44,7 +44,7 @@ func main() {
 	// 	panic(err)
 	// }
 
-	// if err := temperatures.Index([]string{"Threshold"}); err != nil {
+	// if err := temperatures.Index([]string{"Date"}); err != nil {
 	// 	panic(err)
 	// }
 
@@ -88,17 +88,16 @@ func main() {
 	unit, repository := tiedot.NewUnit(context), tiedot.NewTemperaturesRepository(context)
 
 	unit.Begin()
-	// now, _ := time.Parse(config.App.RFC112, time.Now().Format(config.App.RFC112))
 	// temperature := &models.Temperature{
 	// 	Indication: 40,
-	// 	Date:       now,
+	// 	Date:       time.Now(),
 	// 	Threshold:  43,
 	// }
 
 	// fmt.Println(now)
 
 	// repository.Insert(temperature)
-	temperatures := repository.Find(repository.InitQuery().Field(models.TemperaturesSchema.Threshold).Equals(43))
+	temperatures := repository.Find(repository.InitQuery().Field(models.TemperaturesSchema.Date).Equals("2017-08-13T03:30:20+03:00"))
 	unit.Commit()
 
 	fmt.Printf("Temperatures:\n%v", temperatures)

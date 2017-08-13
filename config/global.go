@@ -2,10 +2,16 @@ package config
 
 var App = &app{
 	DbDirectory: "/tmp/thermo-smart",
-	RFC112:      "Mon, 02 Jan 2006 15:04:05 MST",
+}
+
+var Time = &time{
+	RFC3339: "2006-01-02T15:04:05Z07:00",
 }
 
 type app struct {
 	DbDirectory string
-	RFC112      string
+}
+
+type time struct {
+	RFC3339 string
 }

@@ -26,6 +26,12 @@ func (self *Query) Equals(value interface{}) *Query {
 	return self
 }
 
+func (self *Query) Between(start int, end int) *Query {
+	self.query["int-from"] = start
+	self.query["int-to"] = end
+	return self
+}
+
 func (self *Query) Build() []map[string]interface{} {
 	queryResult := make(map[int]struct{}) // query result (document IDs) goes into map keys
 	if err := db.EvalQuery(self.query, self.collection, &queryResult); err != nil {

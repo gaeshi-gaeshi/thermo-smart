@@ -22,7 +22,7 @@ func (self *TemperaturesRepository) Find(query *Query) []models.Temperature {
 	result := make([]models.Temperature, 0)
 	// To use the document itself, simply read it back
 	for _, document := range documents {
-		t, _ := time.Parse(config.App.RFC112, document[models.TemperaturesSchema.Date].(string))
+		t, _ := time.Parse(config.Time.RFC3339, document[models.TemperaturesSchema.Date].(string))
 		result = append(result, models.Temperature{
 			Indication: document[models.TemperaturesSchema.Indication].(float64),
 			Date:       t,
