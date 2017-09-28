@@ -11,9 +11,9 @@ var heater1, heater2, heater3 rpio.Pin
 func init() {
 	rpio.Open()
 
-	heater1 := rpio.Pin(26)
-	heater2 := rpio.Pin(20)
-	heater3 := rpio.Pin(21)
+	heater1 = rpio.Pin(26)
+	heater2 = rpio.Pin(20)
+	heater3 = rpio.Pin(21)
 
 	heater1.Output()
 	heater2.Output()
