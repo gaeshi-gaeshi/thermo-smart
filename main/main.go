@@ -1,17 +1,19 @@
 package main
 
 import (
-	"fmt"
+	//"fmt"
 
-	"github.com/gaeshi-gaeshi/thermo-smart/TemperatureSensorController"
+	//"github.com/gaeshi-gaeshi/thermo-smart/TemperatureSensorController"
+	"github.com/gaeshi-gaeshi/thermo-smart/HeatersController"
 )
 
 func main() {
-	var temp, error = TemperatureSensorController.ReadTemperature()
-	if error != nil {
-		fmt.Println(error)
-		return
-	}
+	HeatersController.Test()
+	//var temp, error = TemperatureSensorController.ReadTemperature()
+	//if error != nil {
+	//	fmt.Println(error)
+	//	return
+	//}
 
-	fmt.Println(temp)
+	//fmt.Println(temp)
 }
