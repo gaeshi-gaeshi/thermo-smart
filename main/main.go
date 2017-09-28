@@ -11,6 +11,12 @@ import (
 )
 
 func main() {
+	if os.Args[1] == "--reset" {
+		HeatersController.SetNumberOfWorkingHeaters(0)
+
+		return
+	}
+
 	targetTemperatureAsFloat64, error := strconv.ParseFloat(os.Args[1], 32)
 	if error != nil {
 		fmt.Println(error)
