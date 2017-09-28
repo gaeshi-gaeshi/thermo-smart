@@ -48,3 +48,21 @@ func SetNumberOfWorkingHeaters(num int) error {
 
 	return nil
 }
+
+// GetNumberOfWorkingHeaters is used to get the number of heaters currently working
+func GetNumberOfWorkingHeaters() int {
+	result := 0
+	if heater1.Read() == rpio.Low {
+		result++
+	}
+
+	if heater2.Read() == rpio.Low {
+		result++
+	}
+
+	if heater3.Read() == rpio.Low {
+		result++
+	}
+
+	return result
+}
