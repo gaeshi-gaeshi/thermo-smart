@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/thermo-smart/TemperatureSensorController"
+	"github.com/gaeshi-gaeshi/thermo-smart/TemperatureSensorController"
 )
 
 func main() {
