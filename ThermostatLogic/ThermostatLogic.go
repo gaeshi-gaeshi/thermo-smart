@@ -39,6 +39,10 @@ func Complex(targetTemperature float32, getCurrentTemperature func() float32, pr
 		currentTemperature := getCurrentTemperature()
 
 		temperatureDifference := targetTemperature - currentTemperature
+		if shouldIncreaseTargetTemperature() {
+			temperatureDifference++
+		}
+
 		if temperatureDifference >= 1 {
 			HeatersController.SetNumberOfWorkingHeaters(3)
 		} else if temperatureDifference < 1 && temperatureDifference >= 0.5 {
@@ -52,4 +56,17 @@ func Complex(targetTemperature float32, getCurrentTemperature func() float32, pr
 
 		time.Sleep(time.Minute * 5)
 	}
+}
+
+func shouldIncreaseTargetTemperature() bool {
+	now := time.Now()
+	if now.Hour() == 23 && now.Minute() >= 30 {
+		return true
+	} else if now.Hour() < 6 {
+		return true
+	} else if now.Hour() == 6 && now.Minute() <= 30 {
+		return true
+	}
+
+	return false
 }
