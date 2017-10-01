@@ -25,7 +25,7 @@ func main() {
 
 	targetTemperature := float32(targetTemperatureAsFloat64)
 
-	fmt.Printf("Target temperature - %f\n", targetTemperature)
+	fmt.Printf("Target temperature - %.2f\n", targetTemperature)
 
 	for {
 		currentTemperature, error := TemperatureSensorController.ReadTemperature()
@@ -45,7 +45,7 @@ func main() {
 			HeatersController.SetNumberOfWorkingHeaters(0)
 		}
 
-		fmt.Printf("Current temperature - %f\n", currentTemperature)
+		fmt.Printf("Current temperature - %.2f\n", currentTemperature)
 		fmt.Printf("Currently working heaters - %d\n", HeatersController.GetNumberOfWorkingHeaters())
 
 		time.Sleep(time.Minute)
