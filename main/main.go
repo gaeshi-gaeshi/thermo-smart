@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"os"
 	"strconv"
 	"time"
@@ -17,6 +18,13 @@ func main() {
 		return
 	}
 
+	if os.Args[1] == "--temp" {
+		currentTemperature := getCurrentTemperature()
+		printCurrentTemperature(currentTemperature)
+
+		return
+	}
+
 	targetTemperatureAsFloat64, error := strconv.ParseFloat(os.Args[1], 32)
 	if error != nil {
 		fmt.Println(error)
@@ -28,11 +36,7 @@ func main() {
 	fmt.Printf("Target temperature - %.2f\n", targetTemperature)
 
 	for {
-		currentTemperature, error := TemperatureSensorController.ReadTemperature()
-		if error != nil {
-			fmt.Println(error)
-			return
-		}
+		currentTemperature := getCurrentTemperature()
 
 		temperatureDifference := targetTemperature - currentTemperature
 		if temperatureDifference > 1 {
@@ -45,9 +49,23 @@ func main() {
 			HeatersController.SetNumberOfWorkingHeaters(0)
 		}
 
-		fmt.Printf("Current temperature - %.2f\n", currentTemperature)
+		printCurrentTemperature(currentTemperature)
 		fmt.Printf("Currently working heaters - %d\n", HeatersController.GetNumberOfWorkingHeaters())
 
 		time.Sleep(time.Minute)
 	}
+}
+
+func getCurrentTemperature() float32 {
+	currentTemperature, error := TemperatureSensorController.ReadTemperature()
+	if error != nil {
+		log.Fatal(error)
+	}
+
+	return currentTemperature
+}
+
+func printCurrentTemperature(currentTemperature float32) {
+
+	fmt.Printf("Current temperature - %.2f\n", currentTemperature)
 }
