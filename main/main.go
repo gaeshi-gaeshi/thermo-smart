@@ -5,10 +5,10 @@ import (
 	"log"
 	"os"
 	"strconv"
-	"time"
 
 	"github.com/gaeshi-gaeshi/thermo-smart/HeatersController"
 	"github.com/gaeshi-gaeshi/thermo-smart/TemperatureSensorController"
+	"github.com/gaeshi-gaeshi/thermo-smart/ThermostatLogic"
 )
 
 func main() {
@@ -35,25 +35,7 @@ func main() {
 
 	fmt.Printf("Target temperature - %.2f\n", targetTemperature)
 
-	for {
-		currentTemperature := getCurrentTemperature()
-
-		temperatureDifference := targetTemperature - currentTemperature
-		if temperatureDifference > 1 {
-			HeatersController.SetNumberOfWorkingHeaters(3)
-		} else if temperatureDifference <= 1 && temperatureDifference > 0 {
-			HeatersController.SetNumberOfWorkingHeaters(2)
-		} else if temperatureDifference <= 0 && temperatureDifference > -1 {
-			HeatersController.SetNumberOfWorkingHeaters(1)
-		} else {
-			HeatersController.SetNumberOfWorkingHeaters(0)
-		}
-
-		printCurrentTemperature(currentTemperature)
-		fmt.Printf("Currently working heaters - %d\n", HeatersController.GetNumberOfWorkingHeaters())
-
-		time.Sleep(time.Minute)
-	}
+	ThermostatLogic.Simple(targetTemperature, getCurrentTemperature, printCurrentTemperature)
 }
 
 func getCurrentTemperature() float32 {
