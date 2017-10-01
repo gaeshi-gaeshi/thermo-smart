@@ -49,6 +49,16 @@ func SetNumberOfWorkingHeaters(num int) error {
 	return nil
 }
 
+// TurnOn is used to turn on single heater
+func TurnOn(heaterID int) {
+	heaters[heaterID-1].Low()
+}
+
+// TurnOff is used to turn off single heater
+func TurnOff(heaterID int) {
+	heaters[heaterID-1].High()
+}
+
 // GetNumberOfWorkingHeaters is used to get the number of heaters currently working
 func GetNumberOfWorkingHeaters() int {
 	result := 0

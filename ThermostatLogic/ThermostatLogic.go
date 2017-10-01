@@ -36,20 +36,28 @@ func Complex(targetTemperature float32, getCurrentTemperature func() float32, pr
 	for {
 		currentTemperature := getCurrentTemperature()
 
-		temperatureDifference := targetTemperature - currentTemperature
+		temperatureDifference := currentTemperature - targetTemperature
 		if shouldIncreaseTargetTemperature() {
-			temperatureDifference++
+			temperatureDifference--
 			fmt.Println("Target temperature increased by 1 degree.")
 		}
 
-		if temperatureDifference >= 1 {
-			HeatersController.SetNumberOfWorkingHeaters(3)
-		} else if temperatureDifference < 1 && temperatureDifference >= 0.5 {
-			HeatersController.SetNumberOfWorkingHeaters(2)
-		} else if temperatureDifference <= -0.5 && temperatureDifference > -2 {
-			HeatersController.SetNumberOfWorkingHeaters(1)
-		} else if temperatureDifference <= -2 {
-			HeatersController.SetNumberOfWorkingHeaters(0)
+		if temperatureDifference <= 1 {
+			HeatersController.TurnOn(1)
+		} else if temperatureDifference >= 2 {
+			HeatersController.TurnOff(1)
+		}
+
+		if temperatureDifference <= -0.5 {
+			HeatersController.TurnOn(2)
+		} else if temperatureDifference >= 0.5 {
+			HeatersController.TurnOff(2)
+		}
+
+		if temperatureDifference <= -1 {
+			HeatersController.TurnOn(3)
+		} else if temperatureDifference >= 0.5 {
+			HeatersController.TurnOff(3)
 		}
 
 		printCurrentTemperature(currentTemperature)
