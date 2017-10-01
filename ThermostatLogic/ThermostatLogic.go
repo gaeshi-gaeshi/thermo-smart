@@ -29,3 +29,27 @@ func Simple(targetTemperature float32, getCurrentTemperature func() float32, pri
 		time.Sleep(time.Minute)
 	}
 }
+
+// Complex uses complex logic to control the temperature. It keeps 1 heaters always on.
+// Also Ton != Toff for the other 2 heaters.
+func Complex(targetTemperature float32, getCurrentTemperature func() float32, printCurrentTemperature func(float32)) {
+	HeatersController.SetNumberOfWorkingHeaters(1)
+
+	for {
+		currentTemperature := getCurrentTemperature()
+
+		temperatureDifference := targetTemperature - currentTemperature
+		if temperatureDifference >= 1 {
+			HeatersController.SetNumberOfWorkingHeaters(3)
+		} else if temperatureDifference < 1 && temperatureDifference >= 0.5 {
+			HeatersController.SetNumberOfWorkingHeaters(2)
+		} else if temperatureDifference <= -0.5 {
+			HeatersController.SetNumberOfWorkingHeaters(1)
+		}
+
+		printCurrentTemperature(currentTemperature)
+		fmt.Printf("Currently working heaters - %d\n", HeatersController.GetNumberOfWorkingHeaters())
+
+		time.Sleep(time.Minute * 5)
+	}
+}

@@ -35,7 +35,7 @@ func main() {
 
 	fmt.Printf("Target temperature - %.2f\n", targetTemperature)
 
-	ThermostatLogic.Simple(targetTemperature, getCurrentTemperature, printCurrentTemperature)
+	ThermostatLogic.Complex(targetTemperature, getCurrentTemperature, printCurrentTemperature)
 }
 
 func getCurrentTemperature() float32 {
