@@ -2,34 +2,52 @@ package main
 
 import (
 	"fmt"
-	"thermo-smart/config"
-	"thermo-smart/data/models"
-	"thermo-smart/data/mongodb"
-	"time"
+	"log"
+	"os"
+	"strconv"
+
+	"github.com/gaeshi-gaeshi/thermo-smart/HeatersController"
+	"github.com/gaeshi-gaeshi/thermo-smart/TemperatureSensorController"
+	"github.com/gaeshi-gaeshi/thermo-smart/ThermostatLogic"
 )
 
-// import (
-// 	"fmt"
-
-// 	"github.com/thermo-smart/TemperatureSensorController"
-// )
-
 func main() {
-	// var temp, error = TemperatureSensorController.ReadTemperature()
-	// if error != nil {
-	// 	fmt.Println(error)
-	// 	return
-	// }
+	if os.Args[1] == "--reset" {
+		HeatersController.SetNumberOfWorkingHeaters(0)
 
-	// fmt.Println(temp)
+		return
+	}
 
-	context := mongodb.NewContext(config.App.DbName, "127.0.0.1")
-	unit, repository := mongodb.NewUnit(context), mongodb.NewTemperaturesRepository(context)
+	if os.Args[1] == "--temp" {
+		currentTemperature := getCurrentTemperature()
+		printCurrentTemperature(currentTemperature)
 
-	unit.Begin()
-	repository.Insert(&models.Temperature{Indication: 32.1, Threshold: 33.0, Date: time.Now()})
-	temperatures := repository.Find(repository.InitQuery().Field(models.TemperaturesSchema.Indication).Equals(32.1).Build())
-	unit.Commit()
+		return
+	}
 
-	fmt.Printf("Temperatures:\n%v", temperatures)
+	targetTemperatureAsFloat64, error := strconv.ParseFloat(os.Args[1], 32)
+	if error != nil {
+		fmt.Println(error)
+		return
+	}
+
+	targetTemperature := float32(targetTemperatureAsFloat64)
+
+	fmt.Printf("Target temperature - %.1f\n", targetTemperature)
+
+	ThermostatLogic.Complex(targetTemperature, getCurrentTemperature, printCurrentTemperature)
+}
+
+func getCurrentTemperature() float32 {
+	currentTemperature, error := TemperatureSensorController.ReadTemperature()
+	if error != nil {
+		log.Fatal(error)
+	}
+
+	return currentTemperature
+}
+
+func printCurrentTemperature(currentTemperature float32) {
+
+	fmt.Printf("Current temperature - %.1f\n", currentTemperature)
 }
