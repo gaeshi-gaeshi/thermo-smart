@@ -14,6 +14,7 @@ func NewQuery(c *db.Col) *Query {
 type Query struct {
 	collection *db.Col
 	query      map[string]interface{}
+	result     []map[string]interface{}
 }
 
 func (self *Query) Field(name string) *Query {
@@ -32,7 +33,7 @@ func (self *Query) Between(start int, end int) *Query {
 	return self
 }
 
-func (self *Query) Build() []map[string]interface{} {
+func (self *Query) Build() *Query {
 	queryResult := make(map[int]struct{}) // query result (document IDs) goes into map keys
 	if err := db.EvalQuery(self.query, self.collection, &queryResult); err != nil {
 		panic(err)
@@ -49,9 +50,12 @@ func (self *Query) Build() []map[string]interface{} {
 		result = append(result, readBack)
 	}
 
-	return result
+	self.result = result
+
+	return self
 }
 
 func (self *Query) Clear() {
 	self.query = make(map[string]interface{})
+	self.result = nil
 }

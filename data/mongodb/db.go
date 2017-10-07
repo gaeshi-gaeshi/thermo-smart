@@ -1,18 +1,28 @@
 package mongodb
 
 import (
-	"thermo-smart/config"
 	"thermo-smart/data/models"
 
 	"gopkg.in/mgo.v2"
 )
 
+func NewContext(dbName string, dbUrl string) *Context {
+	context := &Context{
+		dbName: dbName,
+		dbUrl:  dbUrl,
+	}
+
+	return context
+}
+
 type Context struct {
 	session *mgo.Session
+	dbName  string
+	dbUrl   string
 }
 
 func (self *Context) Open() error {
-	session, err := mgo.Dial("127.0.0.1")
+	session, err := mgo.Dial(self.dbUrl)
 	if err != nil {
 		return err
 	}
@@ -29,5 +39,5 @@ func (self *Context) Close() error {
 }
 
 func (self *Context) Temperatures() *mgo.Collection {
-	return self.session.DB(config.App.DbName).C(models.TemperaturesSchema.Name)
+	return self.session.DB(self.dbName).C(models.TemperaturesSchema.Name)
 }

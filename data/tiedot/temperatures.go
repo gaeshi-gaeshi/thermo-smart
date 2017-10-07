@@ -17,7 +17,7 @@ type TemperaturesRepository struct {
 }
 
 func (self *TemperaturesRepository) Find(query *Query) []models.Temperature {
-	documents := query.Build()
+	documents := query.result
 
 	result := make([]models.Temperature, 0)
 	// To use the document itself, simply read it back

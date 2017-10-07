@@ -16,7 +16,7 @@ type Query struct {
 	field      string
 	collection *mgo.Collection
 	query      map[string]interface{}
-	MongoQuery *Query
+	mongoQuery *mgo.Query
 }
 
 func (self *Query) Field(name string) *Query {
@@ -38,12 +38,13 @@ func (self *Query) Between(start interface{}, end interface{}) *Query {
 	return self
 }
 
-func (self *Query) Build() map[string]interface{} {
-	self.collection.Find(self.query).Sort("-timestamp")
-	return nil
+func (self *Query) Build() *Query {
+	self.mongoQuery = self.collection.Find(self.query).Sort("-timestamp")
+	return self
 }
 
 func (self *Query) Clear() {
-	self.query = nil
-	self.query = make(map[string]interface{})
+	self.query = bson.M{}
+	self.field = ""
+	self.mongoQuery = nil
 }

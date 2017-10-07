@@ -13,7 +13,7 @@ type Query interface {
 	Field(name string) *Query
 	Equals(value interface{}) *Query
 	Between(start interface{}, end interface{}) *Query
-	Build() map[string]interface{}
+	Build() *Query
 	Clear()
 }
 

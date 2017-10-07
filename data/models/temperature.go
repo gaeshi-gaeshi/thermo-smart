@@ -8,9 +8,9 @@ import (
 
 var TemperaturesSchema = &schema{
 	Name:       "Temperatures",
-	Indication: "Indication",
-	Date:       "Date",
-	Threshold:  "Threshold",
+	Indication: "indication",
+	Date:       "date",
+	Threshold:  "threshold",
 }
 
 type Temperature struct {
