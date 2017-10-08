@@ -48,7 +48,7 @@ func heatersHandler(w http.ResponseWriter, r *http.Request) {
 			log.Fatal(error)
 		}
 
-		HeatersController.SetNumberOfWorkingHeaters(numberOfHeaters)
+		fmt.Printf("SetNumberOfWorkingHeaters(%d)", numberOfHeaters)
 	} else {
 		w.WriteHeader(http.StatusNotFound)
 	}
