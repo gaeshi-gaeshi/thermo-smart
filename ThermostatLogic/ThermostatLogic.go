@@ -23,8 +23,10 @@ func Simple(targetTemperature float32, getCurrentTemperature func() float32, pri
 			HeatersController.SetNumberOfWorkingHeaters(0)
 		}
 
+		printCurrentDateAndTime()
 		printCurrentTemperature(currentTemperature)
 		fmt.Printf("Currently working heaters - %d\n", HeatersController.GetNumberOfWorkingHeaters())
+		fmt.Println()
 
 		time.Sleep(time.Minute)
 	}
@@ -60,8 +62,10 @@ func Complex(targetTemperature float32, getCurrentTemperature func() float32, pr
 			HeatersController.TurnOff(3)
 		}
 
+		printCurrentDateAndTime()
 		printCurrentTemperature(currentTemperature)
 		fmt.Printf("Currently working heaters - %d\n", HeatersController.GetNumberOfWorkingHeaters())
+		fmt.Println()
 
 		time.Sleep(time.Minute * 5)
 	}
@@ -78,4 +82,11 @@ func shouldIncreaseTargetTemperature() bool {
 	}
 
 	return false
+}
+
+func printCurrentDateAndTime() {
+	currentTime := time.Now()
+	currentTimeFormatted := currentTime.Format("02.01.2006 15:04")
+
+	fmt.Println(currentTimeFormatted)
 }
