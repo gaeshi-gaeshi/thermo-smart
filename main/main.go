@@ -2,10 +2,11 @@ package main
 
 import (
 	"fmt"
-	"thermo-smart/config"
-	"thermo-smart/data/models"
-	"thermo-smart/data/mongodb"
 	"time"
+
+	"github.com/gaeshi-gaeshi/thermo-smart/config"
+	"github.com/gaeshi-gaeshi/thermo-smart/data/models"
+	"github.com/gaeshi-gaeshi/thermo-smart/data/mongodb"
 )
 
 func main() {
