@@ -1,7 +1,7 @@
 package tiedot
 
 import (
-	"thermo-smart/data/models"
+	"github.com/gaeshi-gaeshi/thermo-smart/data/models"
 
 	"github.com/HouzuoGuo/tiedot/db"
 )

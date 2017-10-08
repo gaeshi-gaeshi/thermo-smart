@@ -1,7 +1,7 @@
 package mongodb
 
 import (
-	"thermo-smart/data/models"
+	"github.com/gaeshi-gaeshi/thermo-smart/data/models"
 
 	"gopkg.in/mgo.v2"
 )
