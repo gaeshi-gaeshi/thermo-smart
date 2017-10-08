@@ -1,9 +1,10 @@
 package tiedot
 
 import (
-	"thermo-smart/config"
-	"thermo-smart/data/models"
 	"time"
+
+	"github.com/gaeshi-gaeshi/thermo-smart/config"
+	"github.com/gaeshi-gaeshi/thermo-smart/data/models"
 )
 
 func NewTemperaturesRepository(c *Context) *TemperaturesRepository {

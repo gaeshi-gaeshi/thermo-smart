@@ -1,6 +1,6 @@
 package mongodb
 
-import "thermo-smart/data/models"
+import "github.com/gaeshi-gaeshi/thermo-smart/data/models"
 
 func NewTemperaturesRepository(c *Context) *TemperaturesRepository {
 	return &TemperaturesRepository{
