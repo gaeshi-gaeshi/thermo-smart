@@ -9,6 +9,7 @@ import (
 	"github.com/gaeshi-gaeshi/thermo-smart/HeatersController"
 	"github.com/gaeshi-gaeshi/thermo-smart/TemperatureSensorController"
 	"github.com/gaeshi-gaeshi/thermo-smart/ThermostatLogic"
+	"github.com/gaeshi-gaeshi/thermo-smart/WebService"
 )
 
 func main() {
@@ -24,6 +25,8 @@ func main() {
 
 		return
 	}
+
+	WebService.Start()
 
 	targetTemperatureAsFloat64, error := strconv.ParseFloat(os.Args[1], 32)
 	if error != nil {
