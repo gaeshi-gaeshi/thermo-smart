@@ -73,11 +73,13 @@ func Complex(targetTemperature float32, getCurrentTemperature func() float32, pr
 
 func shouldIncreaseTargetTemperature() bool {
 	now := time.Now()
-	if now.Hour() == 23 && now.Minute() >= 30 {
+	if now.Hour() == 22 && now.Minute() >= 30 {
 		return true
-	} else if now.Hour() < 6 {
+	} else if now.Hour() > 22 {
 		return true
-	} else if now.Hour() == 6 && now.Minute() <= 30 {
+	} else if now.Hour() < 5 {
+		return true
+	} else if now.Hour() == 5 && now.Minute() <= 30 {
 		return true
 	}
 
